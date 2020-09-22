@@ -1,0 +1,16 @@
+server:
+  port: 9002
+
+spring:
+  application:
+    name: course-center
+  datasource:
+    url: jdbc:mysql://120.26.184.121:3306/content_center
+    hikari:
+      username: root
+      password: abc.123
+      driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+
+
