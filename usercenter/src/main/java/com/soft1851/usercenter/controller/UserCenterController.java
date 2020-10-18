@@ -20,7 +20,7 @@ public class UserCenterController {
     private final UserCenterService userCenterService;
 
     @GetMapping(value = "/{id}")
-    public UserCenterDto getUserDto(@PathVariable int id){
+    public UserCenterDto getUserDto(@PathVariable int id) {
         return userCenterService.getUserDto(id);
     }
 }

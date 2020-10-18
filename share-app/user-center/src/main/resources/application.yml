@@ -1,15 +1,51 @@
 server:
-  port: 9001
-
+  port: 0
 spring:
   application:
-    name: course-center
+    name: syc-user-center
+  zipkin:
+    base-url: http://localhost:9411/
+    discovery-client-enabled: false
+  sleuth:
+    sampler:
+      probability: 1.0
   datasource:
-    url: jdbc:mysql://120.26.184.121:3306/user_center
+    url: jdbc:mysql://120.26.184.121:3306/user_center?serverTimezone=Asia/Shanghai&characterEncoding=utf-8
     hikari:
       username: root
       password: abc.123
       driver-class-name: com.mysql.cj.jdbc.Driver
+      minimum-idle: 10
+      maximum-pool-size: 10
+      max-lifetime: 1800000
+      idle-timeout: 600000
+      connection-timeout: 30000
+  cloud:
+    nacos:
+      discovery:
+        #        server-addr: 120.25.149.156:8848
+        server-addr: 123.56.91.23:8848
+        metadata:
+          instance: 123
+          hello: world
+          version: 1.0
+#        namespace: b878f1b6-5af0-40b7-b11b-0c802b06e170
+rocketmq:
+  name-server: 123.56.91.23:9876
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+jwt:
+  secrect: aaaaaaabbbbbbcccccdddddaaaaaaabbbbbbcccccdddddaaaaaaabbbbbbcccccddddd
+    #有效期，单位秒，默认2周
+  expire-time-in-second: 1209600
+
 
 
 

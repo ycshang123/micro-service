@@ -4,7 +4,6 @@ import com.soft1851.usercenter.entity.UserCenter;
 import tk.mybatis.mapper.common.Mapper;
 
 
-
 /**
  * @author ycshang
  */

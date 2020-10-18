@@ -1,10 +1,10 @@
-package com.soft1851.contentcenter;
+package com.soft1851.gateway;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ContentCenterApplicationTests {
+class GatewayApplicationTests {
 
     @Test
     void contextLoads() {

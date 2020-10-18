@@ -19,8 +19,8 @@ public class CourseCenterController {
     private final CourseCenterService courseCenterService;
 
     @GetMapping()
-    public ResponseResult getAll(){
-        return new ResponseResult(200,"请求成功",courseCenterService.findAll());
+    public ResponseResult getAll() {
+        return new ResponseResult(200, "请求成功", courseCenterService.findAll());
 
     }
 

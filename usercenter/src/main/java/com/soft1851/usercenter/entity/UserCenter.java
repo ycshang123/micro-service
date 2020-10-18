@@ -15,7 +15,7 @@ import javax.persistence.Table;
 /**
  * @author ycshang
  */
-@Table(name="user_center")
+@Table(name = "user_center")
 @Data
 @Builder
 @AllArgsConstructor
@@ -25,7 +25,7 @@ public class UserCenter {
     @Id
     @GeneratedValue(generator = "JDBC")
     private Integer pkId;
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
     @Column(name = "account")
     private String account;

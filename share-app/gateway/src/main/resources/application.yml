@@ -1,0 +1,43 @@
+server:
+  port: 8040
+spring:
+  application:
+    name: syc-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 123.56.91.23:8848
+    gateway:
+      routes:
+        - id: path_route1
+          uri: lb://syc-user-center
+          predicates:
+            - Path=/users/**
+        - id: path_route2
+          uri: lb://syc-course-center
+          predicates:
+            - Path=/shares/**
+        - id: path_route3
+          uri: lb://syc-course-center
+          predicates:
+            - Path=/notices/**
+        - id: path_route4
+          uri: lb://syc-user-center
+          predicates:
+            - Path=/api/**
+      discovery:
+        locator:
+          #          让gateway通过服务发现组件找到其他的微服务
+          enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include:  '*'
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    org.springframework.cloud.gateway: trace

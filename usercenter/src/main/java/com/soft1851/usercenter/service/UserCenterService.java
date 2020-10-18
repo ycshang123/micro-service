@@ -19,15 +19,16 @@ public class UserCenterService {
     private final RestTemplate restTemplate;
 
 
-    public UserCenterDto getUserDto(int Id){
-        Object object=  restTemplate.getForObject("http://127.0.0.1:5000/user/{Id}",Object.class,Id);
+    public UserCenterDto getUserDto(int Id) {
+        Object object = restTemplate.getForObject("http://127.0.0.1:5000/user/{Id}", Object.class, Id);
         ObjectMapper mapper = new ObjectMapper();
-        UserCenter userCenter= mapper.convertValue(object, new TypeReference<UserCenter>() {});
+        UserCenter userCenter = mapper.convertValue(object, new TypeReference<UserCenter>() {
+        });
         UserCenterDto userCenterDto = UserCenterDto
                 .builder().pkId(userCenter.getPkId())
                 .name(userCenter.getName())
                 .avatar(userCenter.getAvatar())
                 .build();
-        return  userCenterDto;
+        return userCenterDto;
     }
 }
