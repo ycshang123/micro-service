@@ -7,6 +7,7 @@ import com.soft1851.usercenter.mapper.BonusEventLogMapper;
 import com.soft1851.usercenter.mapper.UserCenterMapper;
 import com.soft1851.usercenter.service.BonusEventLogService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
@@ -18,6 +19,7 @@ import java.util.List;
  * @author ycshang
  */
 @Service
+@Slf4j
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class BonusEventLogServiceImpl implements BonusEventLogService {
     private final UserCenterMapper userCenterMapper;
@@ -31,6 +33,7 @@ public class BonusEventLogServiceImpl implements BonusEventLogService {
         this.userCenterMapper.updateByPrimaryKeySelective(userCenter);
         BonusEventLog bonusEventLog;
         if(userAddBonusMsgDto.getBonus() >=0){
+            log.info("开始加分》》》》》》》》》》》》》》》》》》》》》》》》》");
              bonusEventLog = BonusEventLog.builder()
                     .userId(userId)
                     .value(userAddBonusMsgDto.getBonus())

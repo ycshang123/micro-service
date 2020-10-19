@@ -102,7 +102,7 @@ public class ShareServiceImpl implements ShareService {
 
     @Override
     public Share auditById(Integer id, ShareAuditDto shareAuditDto) {
-        // 1. 查询share是否存在，不存在或者当前的audit_status != NOT_YET，那么抛异常
+//         1. 查询share是否存在，不存在或者当前的audit_status != NOT_YET，那么抛异常
         Share share = this.shareMapper.selectByPrimaryKey(id);
         if (share == null) {
             throw new IllegalArgumentException("参数非法！该分享不存在！");
@@ -125,32 +125,6 @@ public class ShareServiceImpl implements ShareService {
         );
 
         // 4. 如果是PASS，那么发送消息给rocketmq，让用户中心去消费，并为发布人添加积分
-        if (AuditStatusEnum.PASS.equals(shareAuditDto.getAuditStatusEnum())) {
-            this.rocketMQTemplate.convertAndSend(
-                    "add-bonus",
-                    UserAddBonusMsgDto.builder()
-                            .userId(share.getUserId())
-                            .bonus(50)
-                            .build());
-        }
-
-
-        return share;
-//        log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+shareAuditDto.toString());
-//        //查询share是否存在，不存在或者当前的audit_status != NOT_YET,那么抛异常
-//        Share share = this.shareMapper.selectByPrimaryKey(id);
-//        if (share == null) {
-//            throw new IllegalArgumentException("参数非法，该分享不存在");
-//        }
-//        if (!Objects.equals("NOT_YET", share.getAuditStatus())) {
-//            throw new IllegalArgumentException("参数非法，该分享审核通过或审核不通过");
-//        }
-//        //审核资源，将状态改为PASS或REJECT
-//        share.setAuditStatus(shareAuditDto.getAuditStatusEnum().toString());
-//
-//        this.shareMapper.updateByPrimaryKey(share);
-//
-//        //如果是PASS，那么发送消息给rocketmq，让用户中心去消费，并为发布人添加积分
 //        if (AuditStatusEnum.PASS.equals(shareAuditDto.getAuditStatusEnum())) {
 //            this.rocketMQTemplate.convertAndSend(
 //                    "add-bonus",
@@ -159,8 +133,16 @@ public class ShareServiceImpl implements ShareService {
 //                            .bonus(50)
 //                            .build());
 //        }
-//        return share;
-
+        if ("PASS".equals(shareAuditDto.getAuditStatusEnum())) {
+            log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>开始加分");
+            UserAddBonusMsgDto userAddBonusMsgDto = UserAddBonusMsgDto
+                    .builder()
+                    .userId(share.getUserId())
+                    .bonus(50)
+                    .build();
+            this.bonusEventLogFeignClient.addBonus(userAddBonusMsgDto);
+        }
+        return share;
     }
 
     @Override

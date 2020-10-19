@@ -66,12 +66,14 @@ public class ShareController {
     }
 
     @PutMapping(value = "/auditById/{id}")
-    private Share auditById(@PathVariable Integer id, @RequestBody ShareAuditDto shareAuditDto) {
+    public Share auditById(@PathVariable Integer id, @RequestBody ShareAuditDto shareAuditDto) {
         return this.shareService.auditById(id, shareAuditDto);
     }
 
     @GetMapping(value = "/audit/{id}")
-    private Share audit(@PathVariable Integer id, @RequestBody ShareAuditDto shareAuditDto) {
+    @ExceptionHandler(Exception.class)
+    public Share audit(@PathVariable Integer id, @RequestBody ShareAuditDto shareAuditDto) {
+        log.info(""+shareAuditDto);
         return this.shareService.audit(id, shareAuditDto);
     }
 

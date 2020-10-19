@@ -24,14 +24,14 @@ spring:
     nacos:
       discovery:
         #        server-addr: 120.25.149.156:8848
-        server-addr: 123.56.91.23:8848
+        server-addr: localhost:8848
         metadata:
           instance: 123
           hello: world
           version: 1.0
 #        namespace: b878f1b6-5af0-40b7-b11b-0c802b06e170
 rocketmq:
-  name-server: 123.56.91.23:9876
+  name-server: 120.26.184.121:9876
 
 management:
   endpoints:
